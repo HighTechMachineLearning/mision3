@@ -14,3 +14,16 @@ body {
     opacity: 0.85;
     cursor: pointer;
 }
+
+.tarjeta h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.tarjeta dl {
+    margin: 0;
+}
+
+.tarjeta dd {
+    margin: 0 0 0.25rem;
+}

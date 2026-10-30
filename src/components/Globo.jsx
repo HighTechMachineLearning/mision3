@@ -1,6 +1,8 @@
-import { Map } from "@vis.gl/react-maplibre";
+import { Map, Popup } from "@vis.gl/react-maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import MarcadorSismo from "./MarcadorSismo.jsx";
+import TarjetaSismo from "./TarjetaSismo.jsx";
+import { tamanoMarcador } from "../utils/sismos.js";
 
 const URL_ARCGIS = "https://server.arcgisonline.com/ArcGIS/rest/services";
 
@@ -32,7 +34,7 @@ const ESTILO_MAPA = {
 
 const VISTA_INICIAL = { longitude: 0, latitude: 20, zoom: 2 };
 
-export default function Globo({ sismos }) {
+export default function Globo({ sismos, seleccionado, onSeleccionar }) {
     return (
         <Map
             mapStyle={ESTILO_MAPA}
@@ -40,8 +42,22 @@ export default function Globo({ sismos }) {
             style={{ width: "100%", height: "100%" }}
         >
             {sismos.map((sismo) => (
-                <MarcadorSismo key={sismo.id} sismo={sismo} />
+                <MarcadorSismo
+                    key={sismo.id}
+                    sismo={sismo}
+                    onClick={() => onSeleccionar(sismo.id)}
+                />
             ))}
+            {seleccionado && (
+                <Popup
+                    longitude={seleccionado.longitud}
+                    latitude={seleccionado.latitud}
+                    offset={tamanoMarcador(seleccionado.magnitud) / 2}
+                    onClose={() => onSeleccionar(null)}
+                >
+                    <TarjetaSismo sismo={seleccionado} />
+                </Popup>
+            )}
         </Map>
     );
 }
