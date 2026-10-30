@@ -27,3 +27,32 @@ body {
 .tarjeta dd {
     margin: 0 0 0.25rem;
 }
+
+.panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 20rem;
+    padding: 1rem;
+    overflow-y: auto;
+    background: rgb(20 24 31 / 0.9);
+    color: white;
+}
+
+.estadisticas dd {
+    margin: 0 0 0.5rem;
+}
+
+.estadisticas dt {
+    text-transform: capitalize;
+}
+
+.punto {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+}
