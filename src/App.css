@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+}
+
+.globo {
+    position: fixed;
+    inset: 0;
+}
