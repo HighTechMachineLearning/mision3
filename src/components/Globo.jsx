@@ -1,5 +1,6 @@
 import { Map } from "@vis.gl/react-maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
+import MarcadorSismo from "./MarcadorSismo.jsx";
 
 const URL_ARCGIS = "https://server.arcgisonline.com/ArcGIS/rest/services";
 
@@ -31,12 +32,16 @@ const ESTILO_MAPA = {
 
 const VISTA_INICIAL = { longitude: 0, latitude: 20, zoom: 2 };
 
-export default function Globo() {
+export default function Globo({ sismos }) {
     return (
         <Map
             mapStyle={ESTILO_MAPA}
             initialViewState={VISTA_INICIAL}
             style={{ width: "100%", height: "100%" }}
-        />
+        >
+            {sismos.map((sismo) => (
+                <MarcadorSismo key={sismo.id} sismo={sismo} />
+            ))}
+        </Map>
     );
 }
