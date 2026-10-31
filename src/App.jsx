@@ -21,11 +21,15 @@ export default function App() {
     const estadisticas = calcularEstadisticas(sismosFiltrados);
     const seleccionado = sismosFiltrados.find((sismo) => sismo.id === idSeleccionado) ?? null;
 
+    const filtrarPorMagnitud = (magnitudMinima, magnitudMaxima) =>
+        setFiltros({ ...filtros, magnitudMinima, magnitudMaxima });
+
     return (
         <div className="app">
             <PanelLateral
                 filtros={filtros}
                 onCambiarFiltros={setFiltros}
+                onFiltrarMagnitud={filtrarPorMagnitud}
                 cargando={cargando}
                 error={error}
                 onReintentar={reintentar}

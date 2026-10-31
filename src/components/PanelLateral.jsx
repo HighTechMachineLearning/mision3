@@ -4,6 +4,7 @@ import Filtros from "./Filtros.jsx";
 export default function PanelLateral({
     filtros,
     onCambiarFiltros,
+    onFiltrarMagnitud,
     cargando,
     error,
     onReintentar,
@@ -25,7 +26,7 @@ export default function PanelLateral({
             {!cargando && !error && (
                 <>
                     {estadisticas.total === 0 && <p>Ningún sismo coincide con los filtros.</p>}
-                    <Estadisticas estadisticas={estadisticas} />
+                    <Estadisticas estadisticas={estadisticas} onFiltrarMagnitud={onFiltrarMagnitud} />
                 </>
             )}
         </aside>

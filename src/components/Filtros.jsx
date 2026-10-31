@@ -29,7 +29,7 @@ export default function Filtros({ filtros, onChange }) {
             </label>
 
             <label>
-                Magnitud mínima: {magnitudMinima.toFixed(1)}
+                Magnitud mínima: {magnitudMinima.toFixed(2)}
                 <input
                     type="range"
                     min={MAGNITUD_MINIMA}
@@ -46,7 +46,7 @@ export default function Filtros({ filtros, onChange }) {
             </label>
 
             <label>
-                Magnitud máxima: {magnitudMaxima.toFixed(1)}
+                Magnitud máxima: {magnitudMaxima.toFixed(2)}
                 <input
                     type="range"
                     min={MAGNITUD_MINIMA}

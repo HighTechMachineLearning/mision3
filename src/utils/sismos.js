@@ -10,6 +10,12 @@ export const COLORES_NIVEL = {
 export const MAGNITUD_MINIMA = 2.5;
 export const MAGNITUD_MAXIMA = 10;
 
+export const RANGOS_NIVEL = {
+    leve: [MAGNITUD_MINIMA, 3.99],
+    moderado: [4, 5.99],
+    fuerte: [6, MAGNITUD_MAXIMA],
+};
+
 export const FILTROS_INICIALES = {
     periodo: "day",
     magnitudMinima: MAGNITUD_MINIMA,

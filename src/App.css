@@ -138,8 +138,20 @@ body {
     color: var(--texto-suave);
 }
 
-.estadisticas div>dt {
+.estadisticas button {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-weight: normal;
+    text-align: left;
     text-transform: capitalize;
+}
+
+.estadisticas button:hover {
+    color: var(--texto);
+    text-decoration: underline;
+    filter: none;
 }
 
 .estadisticas dd {
