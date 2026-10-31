@@ -1,9 +1,18 @@
 import Estadisticas from "./Estadisticas.jsx";
+import Filtros from "./Filtros.jsx";
 
-export default function PanelLateral({ cargando, error, onReintentar, estadisticas }) {
+export default function PanelLateral({
+    filtros,
+    onCambiarFiltros,
+    cargando,
+    error,
+    onReintentar,
+    estadisticas,
+}) {
     return (
         <aside className="panel">
             <h1>Sismo Radar</h1>
+            <Filtros filtros={filtros} onChange={onCambiarFiltros} />
             {cargando && <p role="status">Cargando…</p>}
             {error && (
                 <div role="alert">
@@ -13,7 +22,12 @@ export default function PanelLateral({ cargando, error, onReintentar, estadistic
                     </button>
                 </div>
             )}
-            {!cargando && !error && <Estadisticas estadisticas={estadisticas} />}
+            {!cargando && !error && (
+                <>
+                    {estadisticas.total === 0 && <p>Ningún sismo coincide con los filtros.</p>}
+                    <Estadisticas estadisticas={estadisticas} />
+                </>
+            )}
         </aside>
     );
 }

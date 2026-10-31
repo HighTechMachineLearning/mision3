@@ -1,29 +1,43 @@
 import "./App.css";
 import { useState } from "react";
-import { aSismo, calcularEstadisticas, urlUsgs } from "./utils/sismos.js";
+import {
+    aSismo,
+    calcularEstadisticas,
+    FILTROS_INICIALES,
+    filtrarSismos,
+    urlUsgs,
+} from "./utils/sismos.js";
 import { useFetch } from "./hooks/useFetch.js";
 import Globo from "./components/Globo.jsx";
 import PanelLateral from "./components/PanelLateral.jsx";
 
 export default function App() {
-    const { datos, cargando, error, reintentar } = useFetch(urlUsgs("day"));
+    const [filtros, setFiltros] = useState(FILTROS_INICIALES);
     const [idSeleccionado, setIdSeleccionado] = useState(null);
 
+    const { datos, cargando, error, reintentar } = useFetch(urlUsgs(filtros.periodo));
     const sismos = datos?.features.map(aSismo) ?? [];
-    const estadisticas = calcularEstadisticas(sismos);
-    const seleccionado = sismos.find((sismo) => sismo.id === idSeleccionado) ?? null;
+    const sismosFiltrados = filtrarSismos(sismos, filtros);
+    const estadisticas = calcularEstadisticas(sismosFiltrados);
+    const seleccionado = sismosFiltrados.find((sismo) => sismo.id === idSeleccionado) ?? null;
 
     return (
-        <>
+        <div className="app">
             <PanelLateral
+                filtros={filtros}
+                onCambiarFiltros={setFiltros}
                 cargando={cargando}
                 error={error}
                 onReintentar={reintentar}
                 estadisticas={estadisticas}
             />
             <main className="globo">
-                <Globo sismos={sismos} seleccionado={seleccionado} onSeleccionar={setIdSeleccionado} />
+                <Globo
+                    sismos={sismosFiltrados}
+                    seleccionado={seleccionado}
+                    onSeleccionar={setIdSeleccionado}
+                />
             </main>
-        </>
+        </div>
     );
 }

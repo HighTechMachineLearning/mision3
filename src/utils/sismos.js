@@ -7,6 +7,17 @@ export const COLORES_NIVEL = {
     fuerte: "#e74c3c",
 };
 
+export const MAGNITUD_MINIMA = 2.5;
+export const MAGNITUD_MAXIMA = 10;
+
+export const FILTROS_INICIALES = {
+    periodo: "day",
+    magnitudMinima: MAGNITUD_MINIMA,
+    magnitudMaxima: MAGNITUD_MAXIMA,
+    lugar: "",
+    soloTsunami: false,
+};
+
 export function nivelDeMagnitud(magnitud) {
     if (magnitud < 4) return "leve";
     if (magnitud < 6) return "moderado";
@@ -28,24 +39,16 @@ export function aSismo({ id, properties, geometry }) {
     };
 }
 
-export function filtrarSismos(sismos, { magnitud, profundidad, lugar, soloTsunami }) {
-    const [magnitudMinima, magnitudMaxima] = magnitud;
-    const [profundidadMinima, profundidadMaxima] = profundidad;
+export function filtrarSismos(sismos, { magnitudMinima, magnitudMaxima, lugar, soloTsunami }) {
     const textoLugar = lugar.trim().toLowerCase();
 
-    return sismos.filter((sismo) => {
-        // Las profundidades negativas se tratan como 0 solo para filtrar
-        const profundidadParaFiltro = Math.max(0, sismo.profundidad);
-
-        return (
+    return sismos.filter(
+        (sismo) =>
             sismo.magnitud >= magnitudMinima &&
             sismo.magnitud <= magnitudMaxima &&
-            profundidadParaFiltro >= profundidadMinima &&
-            profundidadParaFiltro <= profundidadMaxima &&
             sismo.lugar.toLowerCase().includes(textoLugar) &&
-            (!soloTsunami || sismo.tsunami)
-        );
-    });
+            (!soloTsunami || sismo.tsunami),
+    );
 }
 
 export function calcularEstadisticas(sismos) {
