@@ -53,6 +53,7 @@ export default function Globo({ sismos, seleccionado, onSeleccionar }) {
                     longitude={seleccionado.longitud}
                     latitude={seleccionado.latitud}
                     offset={tamanoMarcador(seleccionado.magnitud) / 2}
+                    maxWidth="none"
                     onClose={() => onSeleccionar(null)}
                 >
                     <TarjetaSismo sismo={seleccionado} />

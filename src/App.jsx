@@ -1,4 +1,3 @@
-import "./App.css";
 import { useState } from "react";
 import {
     aSismo,
@@ -10,6 +9,7 @@ import {
 import { useFetch } from "./hooks/useFetch.js";
 import Globo from "./components/Globo.jsx";
 import PanelLateral from "./components/PanelLateral.jsx";
+import "./App.css";
 
 export default function App() {
     const [filtros, setFiltros] = useState(FILTROS_INICIALES);

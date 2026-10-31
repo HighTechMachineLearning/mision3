@@ -1,5 +1,15 @@
+:root {
+    --fondo-panel: #14181f;
+    --fondo-control: #1e2430;
+    --borde: #2f3846;
+    --texto: #e8ecf1;
+    --texto-suave: #9aa5b4;
+    --acento: #4da3ff;
+}
+
 body {
     margin: 0;
+    font-family: system-ui, sans-serif;
 }
 
 .app {
@@ -12,43 +22,131 @@ body {
 .globo {
     min-width: 0;
     min-height: 0;
+    background: black;
 }
 
-.marcador {
-    padding: 0;
-    border: 1px solid rgb(255 255 255 / 0.8);
-    border-radius: 50%;
-    opacity: 0.85;
-    cursor: pointer;
-}
-
-.tarjeta h2 {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
-}
-
-.tarjeta dl {
-    margin: 0;
-}
-
-.tarjeta dd {
-    margin: 0 0 0.25rem;
-}
+/* Panel lateral */
 
 .panel {
     box-sizing: border-box;
-    padding: 1rem;
+    padding: 1.25rem;
     overflow-y: auto;
-    background: #14181f;
-    color: white;
+    background: var(--fondo-panel);
+    color: var(--texto);
 }
 
-.estadisticas dd {
-    margin: 0 0 0.5rem;
+.panel h1 {
+    margin: 0 0 1.5rem;
+    font-size: 1.5rem;
+}
+
+.panel h2 {
+    margin: 0 0 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.panel h3 {
+    margin: 1rem 0 0.5rem;
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+}
+
+.panel p {
+    color: var(--texto-suave);
+}
+
+.panel button {
+    padding: 0.4rem 0.9rem;
+    border: 0;
+    border-radius: 0.375rem;
+    background: var(--acento);
+    color: #0b1220;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.panel button:hover {
+    filter: brightness(1.1);
+}
+
+.panel :focus-visible,
+.marcador:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+}
+
+/* Filtros */
+
+.filtros {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.filtros label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.filtros select,
+.filtros input[type="range"],
+.filtros input[type="search"] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.25rem;
+}
+
+.filtros select,
+.filtros input[type="search"] {
+    padding: 0.4rem 0.5rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.375rem;
+    background: var(--fondo-control);
+    color: var(--texto);
+    font: inherit;
+}
+
+.filtros input[type="range"],
+.filtros input[type="checkbox"] {
+    accent-color: var(--acento);
+}
+
+.filtros input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Estadísticas */
+
+.estadisticas dl {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem 1rem;
+    margin: 0;
+}
+
+.estadisticas div {
+    display: contents;
 }
 
 .estadisticas dt {
+    color: var(--texto-suave);
+}
+
+.estadisticas div>dt {
     text-transform: capitalize;
+}
+
+.estadisticas dd {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
 }
 
 .punto {
@@ -59,15 +157,94 @@ body {
     border-radius: 50%;
 }
 
-.filtros label {
-    display: block;
-    margin-bottom: 0.75rem;
+/* Marcadores */
+
+.marcador {
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 0.8);
+    border-radius: 50%;
+    opacity: 0.85;
+    cursor: pointer;
 }
 
-.filtros select,
-.filtros input[type="range"],
-.filtros input[type="search"] {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
+.marcador:hover {
+    opacity: 1;
+}
+
+/* Popup (contenedor de MapLibre) */
+
+.maplibregl-popup-content {
+    background: var(--fondo-panel);
+    border: 1px solid var(--borde);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.5);
+}
+
+.maplibregl-popup-anchor-top .maplibregl-popup-tip,
+.maplibregl-popup-anchor-top-left .maplibregl-popup-tip,
+.maplibregl-popup-anchor-top-right .maplibregl-popup-tip {
+    border-bottom-color: var(--fondo-panel);
+}
+
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
+.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip,
+.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip {
+    border-top-color: var(--fondo-panel);
+}
+
+.maplibregl-popup-anchor-left .maplibregl-popup-tip {
+    border-right-color: var(--fondo-panel);
+}
+
+.maplibregl-popup-anchor-right .maplibregl-popup-tip {
+    border-left-color: var(--fondo-panel);
+}
+
+.maplibregl-popup-close-button {
+    color: var(--texto-suave);
+}
+
+.maplibregl-popup-close-button:hover {
+    background: var(--fondo-control);
+    color: var(--texto);
+}
+
+/* Tarjeta del popup */
+
+.tarjeta {
+    font: 0.875rem/1.4 system-ui, sans-serif;
+    color: var(--texto);
+    white-space: nowrap;
+}
+
+.tarjeta h2 {
+    margin: 0 1.5rem 0.5rem 0;
+    font-size: 1rem;
+}
+
+.tarjeta dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.15rem 0.75rem;
+    margin: 0;
+}
+
+.tarjeta dt {
+    color: var(--texto-suave);
+}
+
+.tarjeta dd {
+    margin: 0;
+}
+
+.tarjeta p {
+    margin: 0.5rem 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background: rgb(231 76 60 / 0.15);
+    color: #ff8a80;
+    font-weight: 600;
+}
+
+.tarjeta a {
+    color: var(--acento);
 }
