@@ -9,11 +9,15 @@ export const COLORES_NIVEL = {
 
 export const MAGNITUD_MINIMA = 2.5;
 export const MAGNITUD_MAXIMA = 10;
+export const PASO_MAGNITUD = 0.01;
+
+export const UMBRAL_MODERADO = 4;
+export const UMBRAL_FUERTE = 6;
 
 export const RANGOS_NIVEL = {
-    leve: [MAGNITUD_MINIMA, 3.99],
-    moderado: [4, 5.99],
-    fuerte: [6, MAGNITUD_MAXIMA],
+    leve: [MAGNITUD_MINIMA, UMBRAL_MODERADO - PASO_MAGNITUD],
+    moderado: [UMBRAL_MODERADO, UMBRAL_FUERTE - PASO_MAGNITUD],
+    fuerte: [UMBRAL_FUERTE, MAGNITUD_MAXIMA],
 };
 
 export const FILTROS_INICIALES = {
@@ -25,8 +29,8 @@ export const FILTROS_INICIALES = {
 };
 
 export function nivelDeMagnitud(magnitud) {
-    if (magnitud < 4) return "leve";
-    if (magnitud < 6) return "moderado";
+    if (magnitud < UMBRAL_MODERADO) return "leve";
+    if (magnitud < UMBRAL_FUERTE) return "moderado";
     return "fuerte";
 }
 
@@ -83,4 +87,4 @@ export function calcularEstadisticas(sismos) {
     };
 }
 
-export const tamanoMarcador = (magnitud) => 6 + (magnitud - 2.5) * 3;
+export const tamanoMarcador = (magnitud) => 6 + (magnitud - MAGNITUD_MINIMA) * 3;

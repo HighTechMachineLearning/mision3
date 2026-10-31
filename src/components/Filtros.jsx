@@ -1,4 +1,4 @@
-import { MAGNITUD_MAXIMA, MAGNITUD_MINIMA } from "../utils/sismos.js";
+import { MAGNITUD_MAXIMA, MAGNITUD_MINIMA, PASO_MAGNITUD } from "../utils/sismos.js";
 
 const PERIODOS = [
     { valor: "hour", etiqueta: "Última hora" },
@@ -6,6 +6,22 @@ const PERIODOS = [
     { valor: "week", etiqueta: "7 días" },
     { valor: "month", etiqueta: "30 días" },
 ];
+
+function SliderMagnitud({ etiqueta, valor, onChange }) {
+    return (
+        <label>
+            {etiqueta}: {valor.toFixed(2)}
+            <input
+                type="range"
+                min={MAGNITUD_MINIMA}
+                max={MAGNITUD_MAXIMA}
+                step={PASO_MAGNITUD}
+                value={valor}
+                onChange={(evento) => onChange(Number(evento.target.value))}
+            />
+        </label>
+    );
+}
 
 export default function Filtros({ filtros, onChange }) {
     const { periodo, magnitudMinima, magnitudMaxima, lugar, soloTsunami } = filtros;
@@ -28,39 +44,17 @@ export default function Filtros({ filtros, onChange }) {
                 </select>
             </label>
 
-            <label>
-                Magnitud mínima: {magnitudMinima.toFixed(2)}
-                <input
-                    type="range"
-                    min={MAGNITUD_MINIMA}
-                    max={MAGNITUD_MAXIMA}
-                    step="0.1"
-                    value={magnitudMinima}
-                    onChange={(evento) =>
-                        onChange({
-                            ...filtros,
-                            magnitudMinima: Math.min(Number(evento.target.value), magnitudMaxima),
-                        })
-                    }
-                />
-            </label>
+            <SliderMagnitud
+                etiqueta="Magnitud mínima"
+                valor={magnitudMinima}
+                onChange={(valor) => onChange({ ...filtros, magnitudMinima: Math.min(valor, magnitudMaxima) })}
+            />
 
-            <label>
-                Magnitud máxima: {magnitudMaxima.toFixed(2)}
-                <input
-                    type="range"
-                    min={MAGNITUD_MINIMA}
-                    max={MAGNITUD_MAXIMA}
-                    step="0.1"
-                    value={magnitudMaxima}
-                    onChange={(evento) =>
-                        onChange({
-                            ...filtros,
-                            magnitudMaxima: Math.max(Number(evento.target.value), magnitudMinima),
-                        })
-                    }
-                />
-            </label>
+            <SliderMagnitud
+                etiqueta="Magnitud máxima"
+                valor={magnitudMaxima}
+                onChange={(valor) => onChange({ ...filtros, magnitudMaxima: Math.max(valor, magnitudMinima) })}
+            />
 
             <label>
                 Lugar
